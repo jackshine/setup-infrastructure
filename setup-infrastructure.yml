@@ -5,3 +5,4 @@
 - include: mariadb_install.yml
 - include: pacemaker_install.yml
 - include: haproxy_install.yml
+- include: rsyslog_install.yml
