@@ -1,0 +1,15 @@
+---
+- name: start master mysql
+  service: name=mysql state=started args="--wsrep-new-cluster"
+  when:
+    - inventory_hostname == "{{ groups['galera_all'][0] }}"
+
+- name: sleep 10 s
+  shell: sleep 10
+
+
+- name: start slave mysql
+  service: name=mysql state=started
+
+  when:
+    - inventory_hostname != "{{ groups['galera_all'][0] }}"

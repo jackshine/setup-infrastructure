@@ -1,0 +1,40 @@
+---
+- name: create haproxy log dir
+  file:
+    path: "{{ item.path }}"
+    state: directory
+  with_items:
+    - { path: "/var/log/haproxy" }
+    
+- name: install haproxy packages
+  apt: name={{ item }} state=present
+  with_items:
+    - haproxy
+    - hatop
+    - rsyslog
+    - vim-haproxy
+
+- name: make haproxy bindable on local address
+  sysctl:
+    name: net.ipv4.ip_nonlocal_bind
+    value: 1
+    sysctl_set: yes
+    state: present
+
+- name: copy the default haproxy
+  copy: src=haproxy.default dest=/etc/default/haproxy
+
+- name: configuration of haproxy
+  template: src=haproxy.cfg dest=/etc/haproxy/haproxy.cfg
+  notify: Restart haproxy
+
+- name: haproxy add pacemaker resource
+  shell: crm configure primitive haproxy lsb:haproxy  op monitor interval=30s
+  when: inventory_hostname == "{{ groups['haproxy_all'][0] }}"
+
+- name: resource haproxy add common100
+  shell: crm configure modgroup {{ group_name }} add haproxy
+  when: inventory_hostname == "{{ groups['haproxy_all'][0] }}"
+#- name: apply haproxy logging config
+#  copy: src=haproxy-logging.cfg dest=/etc/rsyslog.d/99-haproxy-local-logging.conf
+#  notify: Restart rsyslog

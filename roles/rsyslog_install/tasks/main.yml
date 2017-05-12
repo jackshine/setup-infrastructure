@@ -1,0 +1,35 @@
+---
+- name: Install rsyslog package
+  apt:
+    name: "{{ item }}"
+    state: latest
+  register: install_packages
+  until: install_packages|success
+  retries: 5
+  delay: 2
+  with_items:
+    - rsyslog
+    - logrotate
+  tags:
+    - rsyslog-apt-packages
+
+- name: Rsyslog basic setup
+  template:
+    src: "{{ item.key }}"
+    dest: "{{ item.value.dest }}"
+    owner: "{{ item.value.owner|default('root') }}"
+    group: "{{ item.value.group|default('root') }}"
+    mode: "{{ item.value.mode|default('0644') }}"
+  with_dict: "{{ templates }}"
+  tags:
+    - rsyslog-config
+  notify: Restart rsyslog services
+
+- name: Configure lograte to compress logs by default
+  lineinfile:
+    dest: /etc/logrotate.conf
+    regexp: "^#compress"
+    line: "compress"
+    backrefs: yes
+  tags:
+    - rsyslog-config

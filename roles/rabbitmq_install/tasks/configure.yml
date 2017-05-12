@@ -1,0 +1,28 @@
+---
+- name: rabbimq vhost
+  rabbitmq_vhost:
+    name: /
+    state: present
+
+- name: remove rabbitmq guest
+  rabbitmq_user:
+    user: guest
+    state: absent
+
+- name: add admin user
+  rabbitmq_user:
+    user: admin
+    password: '{{ rabbitmq_password }}'
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    tags: administrator
+    state: present
+
+- name: Enable queque mirroring
+  rabbitmq_policy:
+    name: HA
+    pattern: ^
+    tags:
+      ha-mode: all

@@ -1,0 +1,77 @@
+[control]
+10.126.0.1 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+10.126.0.2 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+10.126.0.3 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+
+[network]
+10.126.0.4 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+10.126.0.5 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+
+[compute]
+10.126.0.6 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+10.126.0.7 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+10.126.0.8 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+
+[rabbitmq:children]
+control
+
+[memcached:children]
+control
+
+[galera_all:children]
+control
+
+[pacemaker_all:children]
+control
+
+[haproxy_all:children]
+control
+
+[addmons:children]
+control
+
+[addosds:children]
+control
+
+[keystone_all:children]
+control
+
+[ceph_client_all:children]
+control
+compute
+
+[ceph_client_nova:children]
+compute
+
+[glance_all:children]
+control
+
+[nova_api_all:children]
+control
+
+[nova_compute_all:children]
+compute
+
+[horizon_all:children]
+control
+
+[neutron_control_all:children]
+control
+
+[neutron_network_all:children]
+network
+
+[neutron_compute_all:children]
+compute
+
+[neutron_ovs_all:children]
+network
+compute
+
+[cinder_all:children]
+control
+
+[total:children]
+network
+control
+compute

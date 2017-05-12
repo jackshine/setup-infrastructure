@@ -1,0 +1,5 @@
+---
+- hosts: haproxy_all
+  user: root
+  roles:
+  - haproxy_install

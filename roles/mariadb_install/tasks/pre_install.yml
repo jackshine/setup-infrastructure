@@ -1,0 +1,57 @@
+---
+- name: Add galera apt-keys
+  shell: sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
+#  apt_key:
+#    id: "{{ item.hash_id }}"
+#    keyserver: "{{ item.keyserver | default(omit) }}"
+#    data: "{{ item.data | default(omit) }}"
+#    url: "{{ item.url | default(omit) }}"
+#    state: "present"
+#  with_items: "{{ galera_client_gpg_keys }}"
+#  register: add_keys
+#  until: add_keys|success
+#  retries: 5
+#  delay: 2
+#  tags:
+#    - galera-client-apt-keys
+
+- name: set galera repo pin version
+  copy:
+    src: "galera_client_pin.pref"
+    dest: "/etc/apt/preferences.d/galera_client_pin.pref"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  tags:
+    - galera-client-repo-pin
+
+
+- name: Add galera repo(s)
+  apt_repository:
+    repo: "deb http://mirror.jmu.edu/pub/mariadb/repo/10.0/ubuntu {{ ansible_distribution_release }} main"
+    state: "present"
+  register: add_repos
+  until: add_repos|success
+  retries: 5
+  delay: 2
+
+- name: Prevent galera from starting on install
+  copy:
+    src: "policy-rc.d"
+    dest: "/usr/sbin/policy-rc.d"
+    mode: "0755"
+    backup: yes
+  tags:
+    - galera-config
+
+
+- name: Update apt sources
+  apt:
+    update_cache: yes
+    cache_valid_time: 600
+  register: apt_update
+  until: apt_update|success
+  retries: 5
+  delay: 2
+  tags:
+    - galera-client-apt-packages

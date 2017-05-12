@@ -1,0 +1,70 @@
+---
+- name: set password for hacluster
+  user: name=hacluster password={{ hacluster_password }}
+
+- name: enable corosync
+  shell: echo "START=yes" > /etc/default/corosync
+
+# To force Pacemaker to start after Corosync and stop before Corosync
+- name: update pacemaker boot order
+  shell: update-rc.d pacemaker start 20 2 3 4 5 . stop 00 0 1 6 .
+
+- name: configure corosync
+  template:
+    src=corosync.conf
+    dest={{ corosync.dest }} 
+  notify:
+  - restart corosync
+  - restart pacemaker
+
+- name: create corosync log file
+  file: path=/var/log/corosync/corosync.log state=touch owner=root group=root mode=0644
+
+- name: configure pacemaker under corosync
+  template:
+    src=pacemaker
+    dest={{ pacemaker.dest }}
+  notify:
+  - restart pacemaker
+
+- name: set authkey for corosync
+  copy: src=authkey dest=/etc/corosync/authkey owner=root group=root mode=0400
+
+- name: start corosync
+  service: name=corosync state=started
+
+- name: start pacemaker
+  service: name=pacemaker state=started
+
+#- name: check pacemaker status
+#  command: service pacemaker status
+#  register: _pacemaker_status
+#  until: _pacemaker_status.rc == 0
+#  retries: 5
+#  delay: 3
+
+- name: Set basic cluster properties
+  when: inventory_hostname == "{{ groups['pacemaker_all'][0] }}"
+  shell: crm -F configure property pe-warn-series-max="1000" pe-input-series-max="1000" pe-error-series-max="1000" cluster-recheck-interval="s15min"
+
+- name: disable stonith
+  when: inventory_hostname == "{{ groups['pacemaker_all'][0] }}"
+  shell: crm -F configure property stonith-enabled=false
+
+- name: Set VIP
+  when: inventory_hostname == "{{ groups['pacemaker_all'][0] }}"
+  shell: crm -F configure primitive {{ resource_name }} ocf:heartbeat:IPaddr2 params ip={{ virtual_ip }} cidr_netmask="24" op monitor interval="30s"
+  ignore_errors: true
+
+#- name: check vip
+#  shell: ping {{ virtual_ip }} -c 4
+
+- name: Create resource group
+  when: inventory_hostname == "{{ groups['pacemaker_all'][0] }}"
+  shell: crm configure group {{ group_name }} {{ resource_name }}
+  ignore_errors: true
+  register: _group_result
+
+#- name: DEBUG - failed to create resource group
+#  debug: msg="FAILED to create resource group"
+#  when: _group_result|failed

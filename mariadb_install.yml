@@ -1,0 +1,5 @@
+---
+- hosts: galera_all
+  user: root
+  roles:
+  - mariadb_install

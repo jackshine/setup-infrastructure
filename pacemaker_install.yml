@@ -1,0 +1,5 @@
+---
+- hosts: pacemaker_all
+  user: root
+  roles:
+  - pacemaker_install

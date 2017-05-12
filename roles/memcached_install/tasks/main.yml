@@ -1,0 +1,12 @@
+---
+- name: install package
+  apt: name=memcached state=present
+
+- name: copy /etc/default/memcached file
+  copy: src=memcached dest=/etc/default/memcached owner=root group=root mode=0644
+
+- name: copy /etc/memcached.conf file
+  template: src=memcached.conf dest=/etc/memcached.conf owner=root group=root mode=0644
+
+- name: restarted memcached service
+  service: name=memcached state=restarted

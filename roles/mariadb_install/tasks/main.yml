@@ -1,0 +1,6 @@
+---
+- include: pre_install.yml
+- include: install.yml
+- include: configure.yml
+- include: start_cluster.yml
+- include: create_user.yml

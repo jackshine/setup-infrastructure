@@ -1,0 +1,37 @@
+---
+- name: Create galera % root
+  mysql_user:
+    login_user: "root"
+    login_password: ""
+    name: "root"
+    host: "%"
+    password: "{{ galera_root_password }}"
+    priv: "*.*:ALL,GRANT"
+    state: "present"
+  tags:
+    - galera-user1-create
+
+- name: create galera localhost root
+  mysql_user:
+    login_user: "root"
+    login_password: ""
+    name: "root"
+    host: "localhost"
+    password: "{{ galera_root_password }}"
+    priv: "*.*:ALL"
+    state: "present"
+  tags:
+    - galera-user2-create
+
+- name: create galera % haproxy
+  mysql_user:
+    login_user: "root"
+    login_password: "{{ galera_root_password }}"
+    name: "haproxy"
+    host: "%"
+    password: ""
+ #   priv: "*.*:ALL"
+    state: "present"
+  tags:
+    - galera-user3-create
+

@@ -1,0 +1,21 @@
+---
+- name: install rabbitmq package
+  apt: name=rabbitmq-server state=present
+
+- name: stop rabbitmq-server
+  service: name=rabbitmq-server state=stopped
+
+- name: set rabbit cookie
+  copy: src=.erlang.cookie dest=/var/lib/rabbitmq/.erlang.cookie mode=0400 owner=rabbitmq group=rabbitmq
+
+- name: configure for rabbitmq-server
+  copy: src=rabbitmq-server dest=/etc/default/rabbitmq-server
+
+- name: configure for rabbimq-env
+  copy: src=rabbitmq-env.conf dest=/etc/rabbitmq/rabbitmq-env.conf
+
+- name: start rabbitmq-server
+  service: name=rabbitmq-server state=started
+
+- name: Enable management plugin
+  rabbitmq_plugin: names=rabbitmq_management state=enabled

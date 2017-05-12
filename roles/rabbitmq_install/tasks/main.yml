@@ -1,0 +1,12 @@
+---
+#- include: hosts.yml
+- include: base.yml
+- include: rabbitmq_cluster_join.yml
+  when: inventory_hostname != "{{ groups['rabbitmq'][0] }}"
+  tags:
+    - cluster
+
+- include: configure.yml
+  when: inventory_hostname == "{{ groups['rabbitmq'][0] }}"
+  tags:
+    - set_user

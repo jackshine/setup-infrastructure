@@ -1,0 +1,14 @@
+{{ rsyslog_server_storage_directory }}/**/*.log
+{
+        copytruncate
+        daily
+        missingok
+        rotate 7
+        compress
+        maxage 60
+        notifempty
+        nocreate
+        postrotate
+            restart rsyslog 2>&1 || true
+        endscript
+}

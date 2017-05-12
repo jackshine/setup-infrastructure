@@ -1,0 +1,8 @@
+---
+- name: Restart rsyslog services
+  service:
+    name: "{{ item }}"
+    state: restarted
+    pattern: "{{ item }}"
+  with_items:
+    - "rsyslog"

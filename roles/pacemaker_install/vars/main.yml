@@ -1,0 +1,14 @@
+---
+corosync:
+  dest: "/etc/corosync/corosync.conf"
+
+pacemaker:
+  dest: "/etc/corosync/uidgid.d/pacemaker"
+
+packages:
+  - pacemaker
+  - crmsh
+  - corosync
+  - cluster-glue
+  - resource-agents
+  - libqb0

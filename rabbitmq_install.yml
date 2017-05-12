@@ -1,0 +1,5 @@
+---
+- hosts: rabbitmq
+  user: root
+  roles:
+  - rabbitmq_install

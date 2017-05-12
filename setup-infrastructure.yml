@@ -1,0 +1,7 @@
+---
+- include: rabbitmq_install.yml
+- include: memcached_install.yml
+#galera
+- include: mariadb_install.yml
+- include: pacemaker_install.yml
+- include: haproxy_install.yml

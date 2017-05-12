@@ -1,0 +1,35 @@
+# Ansible managed: /etc/ansible/minions-1.0_rc1/playbooks/roles/galera_server/templates/cluster.cnf.j2 modified on 2016-10-30 15:19:37 by root on ansible
+
+[mysqld]
+# Path to Galera library
+wsrep_provider = /usr/lib/galera/libgalera_smm.so
+
+# Cluster connection URL contains the IPs of node#1, node#2 and node#3
+wsrep_cluster_address = gcomm://{{ galera_wsrep_cluster_address }}
+
+# Address for incoming client connections.
+wsrep_node_incoming_address = {{ galera_wsrep_address }}
+
+# In order for Galera to work correctly binlog format should be ROW
+binlog_format = ROW
+
+# MyISAM storage engine has only experimental support
+default_storage_engine = InnoDB
+
+# This changes how InnoDB autoincrement locks are managed and is a requirement for Galera
+innodb_autoinc_lock_mode = 2
+
+# This should be the IP and DNS name for the current system on which you're editing the file.
+wsrep_node_address = {{ galera_wsrep_address }}
+wsrep_node_name = {{ galera_wsrep_address }}
+
+# to enable debug level logging, set this to 1
+wsrep_debug = 0
+
+wsrep_slave_threads = 32
+
+# Cluster name
+wsrep_cluster_name = "{{ galera_cluster_name }}"
+
+# how many times to retry deadlocked autocommits
+wsrep_retry_autocommit = 3

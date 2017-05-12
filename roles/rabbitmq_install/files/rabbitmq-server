@@ -1,0 +1,2 @@
+# Set open file limit for RABBITMQ
+ulimit -n 10240

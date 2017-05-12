@@ -1,0 +1,5 @@
+---
+- hosts: memcached
+  user: root
+  roles:
+  - memcached_install

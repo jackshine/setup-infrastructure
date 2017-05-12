@@ -1,0 +1,22 @@
+---
+# Galera GPG Keys
+#galera_client_gpg_keys:
+#  - key_name: 'mariadb'
+#    keyserver: 'hkp://keyserver.ubuntu.com:80'
+#    hash_id: '0xcbcb082a1bb943db'
+
+#configure files
+templates:
+  "my.cnf.j2":
+    dest: /etc/mysql/my.cnf
+  "cluster.cnf.j2":
+    dest: /etc/mysql/conf.d/cluster.cnf
+  "debian.cnf.j2":
+    dest: /etc/mysql/debian.cnf
+  "mysql_defaults.j2":
+    dest: /etc/default/mysql
+
+#galera_cluster
+galera_wsrep_address: "{{ ansible_ssh_host }}"
+
+

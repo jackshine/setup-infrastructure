@@ -1,0 +1,10 @@
+---
+- name: stop rabbitmq app
+  shell: rabbitmqctl stop_app; sleep 5
+
+- name: join rabbitmq cluster
+  shell: rabbitmqctl join_cluster --ram rabbit@{{ rabbitmq_cluster }}
+
+- name: start rabbitmq app
+  shell: rabbitmqctl start_app
+  
