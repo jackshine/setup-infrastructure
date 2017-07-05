@@ -1,19 +1,4 @@
 ---
-- name: login configs for galera client
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: "root"
-    group: "root"
-    mode: "0600"
-  with_items:
-    - src: "client.my.cnf.j2"
-      dest: "/root/.my.cnf"
-#  when: inventory_hostname in groups['galera_all']
-  tags:
-    - galera-client-user-config
-
-
 - name: Create the local directories
   file:
     path: "{{ item.path }}"

@@ -4,3 +4,5 @@
 - include: configure.yml
 - include: start_cluster.yml
 - include: create_user.yml
+  when:
+    - inventory_hostname == "{{ groups['galera_all'][0] }}"

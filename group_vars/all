@@ -1,22 +1,28 @@
 #rabbitmq_cluster_node
-rabbitmq_cluster: B-OPS-126-1
+#rabbitmq_cluster: B-OPS-131-1
+rabbitmq_cluster: 001
 rabbitmq_user: admin
 rabbitmq_password: admin@2017
-rabbitmq_servers: 10.126.0.1:5672,10.126.0.2:5672,10.126.0.3:5672
+#rabbitmq_servers: 10.131.0.1:5672,10.131.0.2:5672,10.131.0.3:5672
+rabbitmq_servers: 10.2.8.231:5672,10.2.8.232:5672,10.2.8.234:5672
 
 #memcached
-memcached_servers: 10.126.0.1:11211,10.126.0.2:11211,10.126.0.3:11211
+#memcached_servers: 10.131.0.1:11211,10.131.0.2:11211,10.131.0.3:11211
+memcached_servers: 10.2.8.231:11211,10.2.8.232:11211,10.2.8.234:11211
 memcached_encryption_key: secret
 
 #galera
 galera_root_password: "Neunn2016@)!^"
 galera_default_port: 3307
-galera_wsrep_cluster_address: "10.126.0.1,10.126.0.2,10.126.0.3"
+#galera_wsrep_cluster_address: "10.131.0.1,10.131.0.2,10.131.0.3"
+galera_wsrep_cluster_address: "10.2.8.231,10.2.8.232,10.2.8.234"
 galera_cluster_name: openstack_galera_cluster
 
 #pacemaker
-virtual_ip: 10.126.0.200
-bindnetaddr: 10.126.0.0
+#virtual_ip: 10.131.0.200
+virtual_ip: 10.2.8.200
+#bindnetaddr: 10.131.0.0
+bindnetaddr: 10.2.8.0
 group_name: common100
 resource_name: vip100
 hacluster_password: Neunn@123
@@ -26,98 +32,16 @@ expected_votes: 3
 haproxy_username: admin
 haproxy_password: secret123
 #virtual_ip: 10.112.0.200
-control_hostname1: B-OPS-126-1
-control_hostname2: B-OPS-126-2
-control_hostname3: B-OPS-126-3
-control_node1: 10.126.0.1
-control_node2: 10.126.0.2
-control_node3: 10.126.0.3
+#control_hostname1: B-OPS-131-1
+#control_hostname2: B-OPS-131-2
+#control_hostname3: B-OPS-131-3
+control_hostname1: 001
+control_hostname2: 002
+control_hostname3: 003
+#control_node1: 10.131.0.1
+#control_node2: 10.131.0.2
+#control_node3: 10.131.0.3
+control_node1: 10.2.8.231
+control_node2: 10.2.8.232
+control_node3: 10.2.8.234
 
-#ceph cluster
-#clustername: ceph
-#mon1: B-OPS-126-1
-#mon2: B-OPS-126-2
-#mon3: B-OPS-126-3
-#mon1ipaddr: 172.20.32.3
-#mon2ipaddr: 172.20.32.4
-#mon3ipaddr: 172.20.32.5
-#fsid: 03deef90-4865-435a-8c7f-de41c21dbdde
-
-#keystone
-admin_password: "Neunn2017@)!&"
-demo_password: "demo@2017"
-#keystone_db_password: "keystone"
-admin_token: openstack2017
-admin_port: 5002
-public_port: 35359
-keystone_debug: False
-endpoints:
-  internal:
-    port: 5000
-  public:
-    port: 5000
-  admin:
-    port: 35357
-
-#ceph_client
-pool_name_list: Lopenstack
-pg_num: 1024
-nova_ceph_client_uuid: 6fb6e9b7-c7d3-4f6c-ba3e-89e163e5d66e
-
-#glance
-#glance_db_password: "glance"
-glance_service_password: "glance@2016"
-glance_endpoints:
-  internal:
-    port: 9292
-  public:
-    port: 9292
-  admin:
-    port: 9292
-glance_debug: False
-glance_service_backend_api_port: 9293
-glance_service_backend_registry_port: 9192
-
-#nova
-nova_service_password: "nova@2016"
-nova_debug: False
-nova_endpoints:
-  internal:
-    port: 8774
-  public:
-    port: 8774
-  admin:
-    port: 8774
-nova_service_backend_port: 8784
-nova_novncproxy_backend_port: 6090
-nova_ceilometer_enabled: True
-nova_metadata_proxy_secret: secret
-
-#horizon
-horizon_listen_backend_port: 81
-
-#neutron
-neutron_service_password: "neutron@2016"
-neutron_endpoints:
-  internal:
-    port: 9696
-  public:
-    port: 9696
-  admin:
-    port: 9696
-neutron_network_if: p1p2
-neutron_compute_if: bond1
-neutron_driver_interface: neutron.agent.linux.interface.OVSInterfaceDriver
-neutron_driver_metering: neutron.services.metering.drivers.iptables.iptables_driver.IptablesMeteringDriver
-neutron_service_backend_port: 9697
-
-#cinder
-cinder_service_password: cinder@2016
-cinder_endpoints:
-  internal:
-    port: 8776
-  public:
-    port: 8776
-  admin:
-    port: 8776
-cinder_service_backend_port: 9776

@@ -64,7 +64,8 @@
   shell: crm configure group {{ group_name }} {{ resource_name }}
   ignore_errors: true
   register: _group_result
-
+  tags:
+    - resource_group
 #- name: DEBUG - failed to create resource group
 #  debug: msg="FAILED to create resource group"
 #  when: _group_result|failed

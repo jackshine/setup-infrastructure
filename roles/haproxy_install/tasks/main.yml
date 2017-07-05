@@ -31,10 +31,13 @@
 - name: haproxy add pacemaker resource
   shell: crm configure primitive haproxy lsb:haproxy  op monitor interval=30s
   when: inventory_hostname == "{{ groups['haproxy_all'][0] }}"
-
+  tags:
+    - haproxy_resource
 - name: resource haproxy add common100
   shell: crm configure modgroup {{ group_name }} add haproxy
   when: inventory_hostname == "{{ groups['haproxy_all'][0] }}"
+  tags:
+    - haproxy_common100
 #- name: apply haproxy logging config
 #  copy: src=haproxy-logging.cfg dest=/etc/rsyslog.d/99-haproxy-local-logging.conf
 #  notify: Restart rsyslog

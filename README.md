@@ -9,13 +9,20 @@
 第一步: 安装前准备
 --------------
 
-* inventory: 修改openstack_hosts文件要部署的IP地址
+* inventory: 修改openstack_hosts文件要部署的主机变量
 * 变量: 修改group_vars/all里面的变量，这个必须要修改
+* 修改所有的hostname和ip地址等变量
 
 第二步: 安装执行
 --------------
 
 * 执行代码: ansible-playbook -i openstack_hosts setup-infrastructure.yml 
+
+
+第三步: 检测
+--------------
+
+* 安装后检测: mysql -h virtula_ip -uroot -p密码，看看是否可以进去
 
 备注
 --------------
