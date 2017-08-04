@@ -1,28 +1,22 @@
-#rabbitmq_cluster_node
-#rabbitmq_cluster: B-OPS-131-1
-rabbitmq_cluster: 001
+#填写作为集群的节点
+rabbitmq_cluster: B-OPS-126-1
 rabbitmq_user: admin
 rabbitmq_password: admin@2017
-#rabbitmq_servers: 10.131.0.1:5672,10.131.0.2:5672,10.131.0.3:5672
-rabbitmq_servers: 10.2.8.231:5672,10.2.8.232:5672,10.2.8.234:5672
+rabbitmq_servers: 10.126.0.1:5672,10.126.0.2:5672,10.126.0.3:5672
 
 #memcached
-#memcached_servers: 10.131.0.1:11211,10.131.0.2:11211,10.131.0.3:11211
-memcached_servers: 10.2.8.231:11211,10.2.8.232:11211,10.2.8.234:11211
+memcached_servers: 10.126.0.1:11211,10.126.0.2:11211,10.126.0.3:11211
 memcached_encryption_key: secret
 
 #galera
 galera_root_password: "Neunn2016@)!^"
 galera_default_port: 3307
-#galera_wsrep_cluster_address: "10.131.0.1,10.131.0.2,10.131.0.3"
-galera_wsrep_cluster_address: "10.2.8.231,10.2.8.232,10.2.8.234"
+galera_wsrep_cluster_address: "10.126.0.1,10.126.0.2,10.126.0.3"
 galera_cluster_name: openstack_galera_cluster
 
 #pacemaker
-#virtual_ip: 10.131.0.200
-virtual_ip: 10.2.8.200
-#bindnetaddr: 10.131.0.0
-bindnetaddr: 10.2.8.0
+virtual_ip: 10.126.0.200
+bindnetaddr: 10.126.0.0
 group_name: common100
 resource_name: vip100
 hacluster_password: Neunn@123
@@ -31,17 +25,10 @@ expected_votes: 3
 #haproxy
 haproxy_username: admin
 haproxy_password: secret123
-#virtual_ip: 10.112.0.200
-#control_hostname1: B-OPS-131-1
-#control_hostname2: B-OPS-131-2
-#control_hostname3: B-OPS-131-3
-control_hostname1: 001
-control_hostname2: 002
-control_hostname3: 003
-#control_node1: 10.131.0.1
-#control_node2: 10.131.0.2
-#control_node3: 10.131.0.3
-control_node1: 10.2.8.231
-control_node2: 10.2.8.232
-control_node3: 10.2.8.234
+control_hostname1: B-OPS-126-1
+control_hostname2: B-OPS-126-2
+control_hostname3: B-OPS-126-3
+control_node1: 10.126.0.1
+control_node2: 10.126.0.2
+control_node3: 10.126.0.3
 

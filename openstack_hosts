@@ -1,17 +1,8 @@
 [control]
-10.2.8.231 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
-10.2.8.232 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
-10.2.8.234 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+10.126.0.1 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+10.126.0.2 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
+10.126.0.3 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
 
-#[network]
-#10.131.0.4 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
-#10.131.0.5 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
-#
-#[compute]
-#10.131.0.6 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
-#10.131.0.7 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
-#10.131.0.8 ansible_ssh_user=root ansible_ssh_pass=Neunn2016
-#
 [rabbitmq:children]
 control
 
@@ -27,13 +18,3 @@ control
 [haproxy_all:children]
 control
 
-#[addmons:children]
-#control
-#
-#[addosds:children]
-#control
-#
-#[total:children]
-#network
-#control
-#compute
