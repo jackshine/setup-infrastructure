@@ -23,7 +23,7 @@
 --------------
 
 * 安装后检测: mysql -h virtula_ip -uroot -p密码，看看是否可以进去
-* 需要删除: myslq -e "drop user 'root'@'b-ops-126-1';" ，这里的b-ops-*.*根据实际需求添加 
+* 需要删除: myslq -e "drop user 'root'@'b-ops-126-1';" ，这里的b-ops-*-*根据实际需求添加 
 
 备注
 --------------
